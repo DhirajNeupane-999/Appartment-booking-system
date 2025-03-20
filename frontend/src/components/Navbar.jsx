@@ -1,9 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets_frontend/assets";
 import { useState } from "react";
 
 const navLinks = [
-  { title: "Home", path: "/" },
+  // { title: "Home", path: "/" },
   { title: "All Doctors", path: "/doctors" },
   { title: "About", path: "/about" },
   { title: "Contact", path: "/contact" },
@@ -17,8 +17,9 @@ const Navbar = () => {
 
   return (
     <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
+      <Link to="/">
       <img className="w-44 cursor-pointer" src={assets.logo} alt="" />
-
+      </Link>
       <ul className="hidden md:flex items-start gap-5 font-medium uppercase">
         {navLinks.map((nav, index) => (
           <NavLink key={index} to={nav.path}>
