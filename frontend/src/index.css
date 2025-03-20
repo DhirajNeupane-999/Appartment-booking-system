@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
-@theme{
-    --color-primary: #5f6fff;
+@theme {
+  --color-primary: #5f6fff;
 }
 
-.active hr{
-    display: block;
+.active hr {
+  display: block;
+}
+
+::-webkit-scrollbar {
+  @apply hidden;
 }
