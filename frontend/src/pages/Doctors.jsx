@@ -1,7 +1,32 @@
-const Doctors = () => {
-  return (
-    <div>Doctors</div>
-  )
-}
+import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
-export default Doctors
+const Doctors = () => {
+  const { speciality } = useParams();
+  const [filterDoc, setFilterDoc] = useState([])
+
+  const { doctors } = useContext(AppContext);
+  return (
+    <div>
+      <p>Browse through the doctors specialist.</p>
+      <div>
+        <div>
+          <p>General physician</p>
+          <p>Gynecologist</p>
+          <p>Dermatologist</p>
+          <p>Pediatricians</p>
+          <p>Neurologist</p>
+          <p>Gastroenterologist</p>
+        </div>
+        <div>
+          {
+            filterDoc.map()
+          }
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Doctors;
