@@ -106,7 +106,7 @@ const Doctors = () => {
             Gastroenterologist
           </p>
         </div>
-        <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-4 pt-5 gap-y-6 px-3 sm:px-0">
+        <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-4 gap-y-6 px-3 sm:px-0">
           {filterDoc.map((doctor, index) => (
             <DoctorCard key={index} doctor={doctor} />
           ))}
