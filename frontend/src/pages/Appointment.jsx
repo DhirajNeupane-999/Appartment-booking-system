@@ -8,22 +8,88 @@ const Appointment = () => {
   const { doctors, currencySymbol } = useContext(AppContext);
 
   const [docInfo, setDocInfo] = useState(null);
+  const [docSlots, setDocSlots] = useState([]);
+  const [slotIndex, setSlotIndex] = useState(0);
+  const [slotTime, setSlotTime] = useState("");
 
   const fetchDoc = () => {
     const docInfo = doctors.find((doc) => doc._id === docId);
     setDocInfo(docInfo);
   };
 
+  const getAvaiableSlots = async () => {
+    setDocSlots([]);
+
+    // getting current date
+    let today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      //date
+      let currentDate = new Date(today);
+      currentDate.setDate(today.getDate() + i);
+
+      //time
+      let endTime = new Date();
+      endTime.setDate(today.getDate() + i);
+      endTime.setHours(21, 0, 0, 0);
+
+      //hour
+      if (today.getDate() === currentDate.getDate()) {
+        currentDate.setHours(
+          currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
+        );
+        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
+      } else {
+        currentDate.setHours(10);
+        currentDate.setMinutes(0);
+      }
+
+      let timeSlots = [];
+
+      while (currentDate < endTime) {
+        let formattedTime = currentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        // add slot to array
+        timeSlots.push({
+          datetime: new Date(currentDate),
+          time: formattedTime,
+        });
+
+        // increment current time by 30 minutes
+        currentDate.setMinutes(currentDate.getMinutes() + 30);
+      }
+
+      setDocSlots((prev) => [...prev, timeSlots]);
+    }
+  };
+
   useEffect(() => {
     fetchDoc();
   }, [doctors, docId]);
+
+  useEffect(() => {
+    getAvaiableSlots();
+  }, [docInfo]);
+
+  useEffect(()=>{
+    console.log(docSlots);
+    console.log("..........");
+    
+  },[docSlots]);
 
   return (
     docInfo && (
       <div>
         <div className="flex flex-col sm:flex-row gap-4">
           <div>
-            <img className="bg-primary w-full sm:max-w-72 rounded-lg" src={docInfo.image} alt={docInfo.name} />
+            <img
+              className="bg-primary w-full sm:max-w-72 rounded-lg"
+              src={docInfo.image}
+              alt={docInfo.name}
+            />
           </div>
 
           {/* ---------- Doctor Details ---------- */}
@@ -36,16 +102,24 @@ const Appointment = () => {
               <p>
                 {docInfo.degree} - {docInfo.speciality}
               </p>
-              <button className="py-0.5 px-2 border text-xs rounded-full">{docInfo.experience}</button>
+              <button className="py-0.5 px-2 border text-xs rounded-full">
+                {docInfo.experience}
+              </button>
             </div>
             <div>
               <p className="flex items-center gap-1 text-sm font-medium text-gray-900 mt-3">
                 About <img src={assets.info_icon} alt="" />
               </p>
-              <p className="text-sm text-gray-500 mx-w-[700px] mt-1">{docInfo.about}</p>
+              <p className="text-sm text-gray-500 mx-w-[700px] mt-1">
+                {docInfo.about}
+              </p>
             </div>
             <p className="text-gray-500 font-medium mt-4">
-              Appointment fee: <span className="text-gray-600">{currencySymbol}{docInfo.fees}</span>
+              Appointment fee:{" "}
+              <span className="text-gray-600">
+                {currencySymbol}
+                {docInfo.fees}
+              </span>
             </p>
           </div>
         </div>
