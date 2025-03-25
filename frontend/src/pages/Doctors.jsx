@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import DoctorCard from "../components/DoctorCard";
 
 const Doctors = () => {
   const { slug } = useParams();
+  const { pathname } = useLocation();
   const [filterDoc, setFilterDoc] = useState([]);
   const navigate = useNavigate();
 
@@ -27,6 +28,12 @@ const Doctors = () => {
   useEffect(() => {
     applyFilter();
   }, [doctors, slug]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
+  }, [pathname]);
 
   return (
     <div>
