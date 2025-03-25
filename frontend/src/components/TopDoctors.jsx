@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import DoctorCard from "./DoctorCard";
 
@@ -17,12 +17,17 @@ const TopDoctors = () => {
           <DoctorCard key={index} doctor={doctor} />
         ))}
       </div>
-      <Link
-        to="/doctors"
-        className="bg-blue-50 text-gray-600 px-12 py-3 rounded-full mt-10"
+      <button
+        onClick={() => {
+          navigate("/doctors");
+          setTimeout(() => {
+            scrollTo(0, 0);
+          }, 50);
+        }}
+        className="bg-blue-50 text-gray-600 px-12 py-3 rounded-full mt-10 cursor-pointer border border-blue-50 hover:border-blue-200"
       >
         More
-      </Link>
+      </button>
     </div>
   );
 };
