@@ -9,15 +9,15 @@ const Contact = () => {
         </p>
       </div>
 
-      <div>
-        <img src={assets.contact_image} alt="" />
-        <div>
-          <p>Our Office</p>
-          <p>Mirpur 10, Dhaka<br />Bangladesh</p>
-          <p>Email: mahmudalam.official@gmail.com</p>
-          <p>Careers at Prescripto</p>
-          <p>Learn more about our teams and job openings.</p>
-          <button>Explore Jobs</button>
+      <div className="my-10 flex flex-col md:flex-row gap-10 justify-center mb-28 text-sm">
+        <img className="w-full md:max-w-[360px]" src={assets.contact_image} alt="" />
+        <div className="flex flex-col justify-center gap-6 items-start">
+          <p className="font-semibold text-lg text-gray-600 uppercase">Our Office</p>
+          <p className="text-gray-500">Mirpur 10, Dhaka<br />Bangladesh</p>
+          <p className="text-gray-500">Email: mahmudalam.official@gmail.com</p>
+          <p className="font-semibold text-lg text-gray-600 uppercase">Careers at Prescripto</p>
+          <p className="text-gray-500">Learn more about our teams and job openings.</p>
+          <button className="border border-primary text-primary px-8 py-4 text-sm hover:bg-primary hover:text-white transition-all duration-500">Explore Jobs</button>
         </div>
       </div>
     </div>
