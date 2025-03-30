@@ -19,7 +19,7 @@ const Login = () => {
 
   return (
     <form className="min-h-[80vh] flex items-center">
-      <div>
+      <div className="flex flex-col gap-3 w-full max-w-[400px] mx-auto p-4 border border-gray-300 rounded-lg shadow-md">
         <p>{state === "Sign Up" ? "Create Account" : "Login"}</p>
         <p>
           Please {state === "Sign Up" ? "sign up" : "log in"} to book
