@@ -96,11 +96,10 @@ const Navbar = () => {
             {navLinks.map((nav, index) => (
               <NavLink
                 onClick={() => setShowMenu(false)}
-                className="px-4 py-2 rounded inline-block"
                 key={index}
                 to={nav.path}
               >
-                {nav.title}
+                <p className="px-4 py-2 rounded inline-block">{nav.title}</p>
               </NavLink>
             ))}
           </ul>
