@@ -16,7 +16,7 @@ const Profile = () => {
     bloodGroup: "O+",
   });
 
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <div>
@@ -117,6 +117,13 @@ const Profile = () => {
             )
           }
         </div>
+      </div>
+      <div>
+        {
+          isEdit
+            ? <button onClick={() => setIsEdit(false)}>Save</button>
+            : <button onClick={() => setIsEdit(true)}>Edit</button>
+        }
       </div>
     </div>
   );
