@@ -73,24 +73,34 @@ const Navbar = () => {
         {/* ----------- Mobile Menu ------------- */}
         <img
           onClick={() => setShowMenu(true)}
-          className="w-6 md:hidden"
+          className="w-6 cursor-pointer md:hidden"
           src={assets.menu_icon}
-          alt=""
+          alt="menu icon"
         />
-        <div>
-          <div>
-            <img src={assets.logo} alt="" />
+        <div
+          className={`${showMenu ? "fixed w-full" : "h-0 w-0"} 
+          md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all duration-300`}
+        >
+          <div className="flex items-center justify-between px-5 py-6">
+            <Link onClick={() => setShowMenu(false)} to="/">
+              <img className="w-36" src={assets.logo} />
+            </Link>
             <img
+              className="w-7 cursor-pointer"
               onClick={() => setShowMenu(false)}
               src={assets.cross_icon}
-              alt=""
+              alt="cross icon"
             />
           </div>
-          <ul>
+          <ul className="flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium">
             {navLinks.map((nav, index) => (
-              <NavLink key={index} to={nav.path}>
-                <li className="py-1">{nav.title}</li>
-                <hr className="hidden border-none outline-none h-0.5 bg-primary w-3/5 m-auto" />
+              <NavLink
+                onClick={() => setShowMenu(false)}
+                className="px-4 py-2 rounded inline-block"
+                key={index}
+                to={nav.path}
+              >
+                {nav.title}
               </NavLink>
             ))}
           </ul>
