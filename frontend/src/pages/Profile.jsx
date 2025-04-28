@@ -16,7 +16,7 @@ const Profile = () => {
     bloodGroup: "O+",
   });
 
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(true);
 
   return (
     <div>
@@ -51,18 +51,57 @@ const Profile = () => {
             <p>{userData.phone}</p>
           )}
           <p>Address:</p>
-          {
-            isEdit ? <p>
-              <input onChange={e => setUserData(prev => ({...prev, address:{...prev.address, line1:e.target.value}}))} value={userData.address.line1} type="text" />
+          {isEdit ? (
+            <p>
+              <input
+                onChange={(e) =>
+                  setUserData((prev) => ({
+                    ...prev,
+                    address: { ...prev.address, line1: e.target.value },
+                  }))
+                }
+                value={userData.address.line1}
+                type="text"
+              />
               <br />
-              <input onChange={e => setUserData(prev => ({...prev, address:{...prev.address, line2:e.target.value}}))} value={userData.address.line2} type="text" />
+              <input
+                onChange={(e) =>
+                  setUserData((prev) => ({
+                    ...prev,
+                    address: { ...prev.address, line2: e.target.value },
+                  }))
+                }
+                value={userData.address.line2}
+                type="text"
+              />
             </p>
-            : <p>
+          ) : (
+            <p>
               {userData.address.line1}
               <br />
               {userData.address.line2}
             </p>
-          }
+          )}
+        </div>
+      </div>
+      <div>
+        <p>BASIC INFORMATION</p>
+        <div>
+          <p>Gender:</p>
+          {isEdit ? (
+            <select
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, gender: e.target.value }))
+              }
+              value={userData.gender}
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Others">Others</option>
+            </select>
+          ) : (
+            <p>{userData.gender}</p>
+          )}
         </div>
       </div>
     </div>
