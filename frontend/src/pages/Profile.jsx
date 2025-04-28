@@ -24,7 +24,7 @@ const Profile = () => {
       {isEdit ? (
         <input
           onChange={(e) =>
-            setUserData(prev => ({ ...prev, name: e.target.value }))
+            setUserData((prev) => ({ ...prev, name: e.target.value }))
           }
           value={userData.name}
           type="text"
@@ -32,6 +32,39 @@ const Profile = () => {
       ) : (
         <p>{userData.name}</p>
       )}
+      <hr />
+      <div>
+        <p>CONTACT INFORMATION</p>
+        <div>
+          <p>Email Id:</p>
+          <p>{userData.email}</p>
+          <p>Phone:</p>
+          {isEdit ? (
+            <input
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, phone: e.target.value }))
+              }
+              value={userData.phone}
+              type="text"
+            />
+          ) : (
+            <p>{userData.phone}</p>
+          )}
+          <p>Address:</p>
+          {
+            isEdit ? <p>
+              <input onChange={e => setUserData(prev => ({...prev, address:{...prev.address, line1:e.target.value}}))} value={userData.address.line1} type="text" />
+              <br />
+              <input onChange={e => setUserData(prev => ({...prev, address:{...prev.address, line2:e.target.value}}))} value={userData.address.line2} type="text" />
+            </p>
+            : <p>
+              {userData.address.line1}
+              <br />
+              {userData.address.line2}
+            </p>
+          }
+        </div>
+      </div>
     </div>
   );
 };
