@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
       <Link to="/">
-      <img className="w-44 cursor-pointer" src={assets.logo} alt="" />
+        <img className="w-44 cursor-pointer" src={assets.logo} alt="" />
       </Link>
       <ul className="hidden md:flex items-start gap-5 font-medium uppercase">
         {navLinks.map((nav, index) => (
@@ -40,9 +40,24 @@ const Navbar = () => {
             <img className="w-2.5" src={assets.dropdown_icon} alt="" />
             <div className="absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block">
               <div className="min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4">
-                <p onClick={()=>navigate("/profile")} className="hover:text-black cursor-pointer">My Profile</p>
-                <p onClick={()=>navigate("/appointments")} className="hover:text-black cursor-pointer">My Appointments</p>
-                <p onClick={()=>setToken(false)} className="hover:text-black cursor-pointer">Logout</p>
+                <p
+                  onClick={() => navigate("/profile")}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Profile
+                </p>
+                <p
+                  onClick={() => navigate("/appointments")}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Appointments
+                </p>
+                <p
+                  onClick={() => setToken(false)}
+                  className="hover:text-black cursor-pointer"
+                >
+                  Logout
+                </p>
               </div>
             </div>
           </div>
@@ -54,6 +69,32 @@ const Navbar = () => {
             Create Account
           </button>
         )}
+
+        {/* ----------- Mobile Menu ------------- */}
+        <img
+          onClick={() => setShowMenu(true)}
+          className="w-6 md:hidden"
+          src={assets.menu_icon}
+          alt=""
+        />
+        <div>
+          <div>
+            <img src={assets.logo} alt="" />
+            <img
+              onClick={() => setShowMenu(false)}
+              src={assets.cross_icon}
+              alt=""
+            />
+          </div>
+          <ul>
+            {navLinks.map((nav, index) => (
+              <NavLink key={index} to={nav.path}>
+                <li className="py-1">{nav.title}</li>
+                <hr className="hidden border-none outline-none h-0.5 bg-primary w-3/5 m-auto" />
+              </NavLink>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
