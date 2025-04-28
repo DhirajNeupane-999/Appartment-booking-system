@@ -102,6 +102,20 @@ const Profile = () => {
           ) : (
             <p>{userData.gender}</p>
           )}
+          <p>Birthday:</p>
+          {
+            isEdit ? (
+              <input
+                onChange={(e) =>
+                  setUserData((prev) => ({ ...prev, dob: e.target.value }))
+                }
+                value={userData.dob}
+                type="date"
+              />
+            ) : (
+              <p>{userData.dob}</p>
+            )
+          }
         </div>
       </div>
     </div>
