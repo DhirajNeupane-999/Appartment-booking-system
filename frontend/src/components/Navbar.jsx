@@ -17,7 +17,7 @@ const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
 
   return (
-    <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
+    <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400 bg-white sticky top-0 z-50">
       <Link to="/">
         <img className="w-44 cursor-pointer" src={assets.logo} alt="" />
       </Link>
