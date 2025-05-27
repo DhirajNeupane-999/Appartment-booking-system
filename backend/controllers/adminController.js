@@ -1,6 +1,8 @@
 import validator from "validator";
 import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
+import doctorModel from "../models/doctorModel.js";
+import e from "express";
 
 // API for adding doctor
 const addDoctor = async (req, res) => {
@@ -61,9 +63,34 @@ const addDoctor = async (req, res) => {
     });
     const imageUrl = imageUpload.secure_url;
 
-    
+    // create doctor object
+    const doctorData = {
+      name,
+      email,
+      password: hashedPassword,
+      speciality,
+      degree,
+      experience,
+      about,
+      fees,
+      address: JSON.parse(address),                 // parse address to JSON
+      image: imageUrl,                              // store the image URL
+      date: Date().now(),                           // store the current date
+    };
+
+    const newDoctor = new doctorModel(doctorData);
+    await newDoctor.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Doctor added successfully",
+      doctor: newDoctor,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
