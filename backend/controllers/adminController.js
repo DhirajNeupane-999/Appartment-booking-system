@@ -50,6 +50,18 @@ const addDoctor = async (req, res) => {
         message: "Password must be at least 8 characters long!",
       });
     }
+
+    // hashing the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // upload image to cloudinary
+    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+      resource_type: "image",
+    });
+    const imageUrl = imageUpload.secure_url;
+
+    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
