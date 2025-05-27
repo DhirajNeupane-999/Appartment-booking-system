@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "author": {
+    "name": "Mahmud Alam",
+    "url": "https://mahmudalam.com"
+  },
+  "version": "1.0.0",
+  "description": "A full-stack Doctor Appointment Booking System built with Node.js, Express.js, MongoDB, and React.js. The system allows users to browse doctors, book appointments, manage profiles, and streamline healthcare interactions.",
+  "license": "ISC",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  }
+}
