@@ -2,7 +2,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
-import e from "express";
+import jwt from "jsonwebtoken";
 
 // API for adding doctor
 const addDoctor = async (req, res) => {
@@ -73,9 +73,9 @@ const addDoctor = async (req, res) => {
       experience,
       about,
       fees,
-      address: JSON.parse(address),             // parse address to JSON
-      image: imageUrl,                          // store the image URL
-      date: Date.now(),                         // store the current date
+      address: JSON.parse(address), // parse address to JSON
+      image: imageUrl, // store the image URL
+      date: Date.now(), // store the current date
     };
 
     const newDoctor = new doctorModel(doctorData);
@@ -93,4 +93,39 @@ const addDoctor = async (req, res) => {
   }
 };
 
-export { addDoctor };
+// API for Admin Login
+const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // checking for all data to login
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please enter email and password!" });
+    }
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(email+password, process.env.JWT_SECRET);
+      return res.status(200).json({
+        success: true,
+        token,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { addDoctor, loginAdmin };
