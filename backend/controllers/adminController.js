@@ -73,9 +73,9 @@ const addDoctor = async (req, res) => {
       experience,
       about,
       fees,
-      address: JSON.parse(address),                 // parse address to JSON
-      image: imageUrl,                              // store the image URL
-      date: Date().now(),                           // store the current date
+      address: JSON.parse(address),             // parse address to JSON
+      image: imageUrl,                          // store the image URL
+      date: Date.now(),                         // store the current date
     };
 
     const newDoctor = new doctorModel(doctorData);
@@ -84,7 +84,6 @@ const addDoctor = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Doctor added successfully",
-      doctor: newDoctor,
     });
   } catch (error) {
     res.status(500).json({
