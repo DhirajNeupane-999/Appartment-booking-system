@@ -3,7 +3,7 @@ import { assets } from "../assets/assets_frontend/assets";
 import { useState } from "react";
 
 const navLinks = [
-  // { title: "Home", path: "/" },
+  { title: "Home", path: "/" },
   { title: "All Doctors", path: "/doctors" },
   { title: "About", path: "/about" },
   { title: "Contact", path: "/contact" },
