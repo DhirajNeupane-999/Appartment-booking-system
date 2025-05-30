@@ -109,7 +109,7 @@ const loginAdmin = async (req, res) => {
       email === process.env.ADMIN_EMAIL &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      const token = jwt.sign(email+password, process.env.JWT_SECRET);
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
       return res.status(200).json({
         success: true,
         token,
@@ -128,4 +128,23 @@ const loginAdmin = async (req, res) => {
   }
 };
 
-export { addDoctor, loginAdmin };
+// API for getting all doctors
+const getAllDoctors = async (req, res) => {
+  try {
+    const doctors = await doctorModel
+      .find({})
+      .select("-password")
+      .sort({ date: -1 });
+    res.status(200).json({
+      success: true,
+      doctors,
+    });
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: error.message,
+    })
+  }
+};
+
+export { addDoctor, loginAdmin, getAllDoctors };
