@@ -5,12 +5,9 @@ import DoctorCard from "../../components/DoctorCard";
 const DoctorsList = () => {
   const { doctors, aToken, getAllDoctors } = useContext(AdminContext);
 
-  useEffect(
-    (aToken) => {
-      getAllDoctors();
-    },
-    [aToken]
-  );
+  useEffect(() => {
+    getAllDoctors();
+  }, [aToken]);
 
   return (
     <div className="m-5 max-h-[90vh] overflow-y-scroll">
