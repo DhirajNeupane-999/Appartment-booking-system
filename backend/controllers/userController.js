@@ -1,5 +1,6 @@
 import validator from "validator";
 import bcrypt from "bcrypt";
+import userModel from "../models/userModel.js";
 
 // API to register user
 const registerUser = async (req, res) => {
@@ -37,6 +38,7 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
     };
 
-    
+    const newUser = new userModel(userData);
+    const user = await newUser.save();
   } catch (error) {}
 };
