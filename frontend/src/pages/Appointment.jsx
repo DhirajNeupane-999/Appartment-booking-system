@@ -19,7 +19,7 @@ const Appointment = () => {
     setDocInfo(docInfo);
   };
 
-  const getAvaiableSlots = async () => {
+  const getAvailableSlots = async () => {
     setDocSlots([]);
 
     // getting current date
@@ -36,11 +36,21 @@ const Appointment = () => {
       endTime.setHours(21, 0, 0, 0);
 
       //hour
-      if (today.getDate() === currentDate.getDate()) {
-        currentDate.setHours(
-          currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
+      if (today.toDateString() === currentDate.toDateString()) {
+        const now = new Date();
+        const nextSlot = new Date(now);
+        nextSlot.setMinutes(now.getMinutes() > 30 ? 0 : 30);
+        nextSlot.setHours(
+          now.getMinutes() > 30 ? now.getHours() + 1 : now.getHours()
         );
-        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
+
+        if (nextSlot.getHours() < 21) {
+          currentDate.setHours(nextSlot.getHours());
+          currentDate.setMinutes(nextSlot.getMinutes());
+        } else {
+          // skip today if hour passed
+          continue;
+        }
       } else {
         currentDate.setHours(10);
         currentDate.setMinutes(0);
@@ -73,7 +83,7 @@ const Appointment = () => {
   }, [doctors, docId]);
 
   useEffect(() => {
-    getAvaiableSlots();
+    getAvailableSlots();
   }, [docInfo]);
 
   return (
@@ -163,7 +173,7 @@ const Appointment = () => {
         </div>
 
         {/* Related Doctors section */}
-        <RelatedDoctors docId={docId} speciality={docInfo.speciality}/>
+        <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
       </div>
     )
   );
