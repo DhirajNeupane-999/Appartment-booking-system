@@ -1,6 +1,7 @@
 import validator from "validator";
 import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 // API to register user
 const registerUser = async (req, res) => {
@@ -40,5 +41,19 @@ const registerUser = async (req, res) => {
 
     const newUser = new userModel(userData);
     const user = await newUser.save();
-  } catch (error) {}
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    res.status(201).json({
+      success: true,
+      token,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
+
+export { registerUser };
