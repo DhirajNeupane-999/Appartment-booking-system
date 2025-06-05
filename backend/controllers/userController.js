@@ -49,7 +49,14 @@ const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(400).json({
+    if (error.code === 11000 && error.keyPattern?.email) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "This email address is already in use. Please use a different one.",
+      });
+    }
+    return res.status(400).json({
       success: false,
       message: error.message,
     });
