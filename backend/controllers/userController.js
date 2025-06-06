@@ -99,4 +99,22 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+// API to get user details
+const getUserProfile = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const userData = await userModel.findById(userId).select("-password");
+
+    res.status(200).json({
+      success: true,
+      userData,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, getUserProfile };
