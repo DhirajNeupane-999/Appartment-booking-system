@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { set } from "mongoose";
 
 export const AppContext = createContext();
 
@@ -12,6 +13,7 @@ const AppContextProvider = (props) => {
   const [doctors, setDoctors] = useState([]);
 
   const [token, setToken] = useState(localStorage.getItem("token") || false);
+  const [userData, setUserData] = useState(false);
 
   const getDoctorsData = async () => {
     try {
@@ -24,9 +26,33 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const loadUserProfileData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/user/get-profile", {
+        headers: { token },
+      });
+
+      if (data.success) {
+        setUserData(data.userData);
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to load user profile"
+      );
+    }
+  };
+
   useEffect(() => {
     getDoctorsData();
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      loadUserProfileData();
+    } else {
+      setUserData(false);
+    }
+  }, [token]);
 
   const value = {
     doctors,
@@ -34,6 +60,9 @@ const AppContextProvider = (props) => {
     backendUrl,
     token,
     setToken,
+    userData,
+    setUserData,
+    loadUserProfileData,
   };
 
   return (
