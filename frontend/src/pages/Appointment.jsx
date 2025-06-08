@@ -26,60 +26,61 @@ const Appointment = () => {
 
   const getAvailableSlots = async () => {
     setDocSlots([]);
-
-    // getting current date
     let today = new Date();
 
     for (let i = 0; i < 7; i++) {
-      //date
       let currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
 
-      //time
-      let endTime = new Date();
-      endTime.setDate(today.getDate() + i);
-      endTime.setHours(21, 0, 0, 0);
+      let slotDateObj = new Date(currentDate);
+      slotDateObj.setHours(10, 0, 0, 0); // Start of slots
+      let endTime = new Date(currentDate);
+      endTime.setHours(20, 30, 0, 0); // End of slots at 8:30pm
 
-      //hour
-      if (today.toDateString() === currentDate.toDateString()) {
+      // If it's today, start after current time rounded up to next slot
+      if (i === 0) {
         const now = new Date();
         const nextSlot = new Date(now);
+
         nextSlot.setMinutes(now.getMinutes() > 30 ? 0 : 30);
         nextSlot.setHours(
           now.getMinutes() > 30 ? now.getHours() + 1 : now.getHours()
         );
+        nextSlot.setSeconds(0, 0);
 
-        if (nextSlot.getHours() < 21) {
-          currentDate.setHours(nextSlot.getHours());
-          currentDate.setMinutes(nextSlot.getMinutes());
-        } else {
-          // skip today if hour passed
-          continue;
-        }
-      } else {
-        currentDate.setHours(10);
-        currentDate.setMinutes(0);
+        if (nextSlot > endTime) continue; // skip today if no valid slot left
+        slotDateObj = new Date(nextSlot); // start from next available slot
       }
 
       let timeSlots = [];
 
-      while (currentDate < endTime) {
-        let formattedTime = currentDate.toLocaleTimeString([], {
+      while (slotDateObj <= endTime) {
+        let formattedTime = slotDateObj.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         });
 
-        // add slot to array
-        timeSlots.push({
-          datetime: new Date(currentDate),
-          time: formattedTime,
-        });
+        let slotDay = slotDateObj.getDate();
+        let slotMonth = slotDateObj.getMonth() + 1;
+        let slotYear = slotDateObj.getFullYear();
+        const slotDateKey = slotDay + "_" + slotMonth + "_" + slotYear;
 
-        // increment current time by 30 minutes
-        currentDate.setMinutes(currentDate.getMinutes() + 30);
+        const isSlotBooked =
+          docInfo?.slots_booked?.[slotDateKey]?.includes(formattedTime);
+
+        if (!isSlotBooked) {
+          timeSlots.push({
+            datetime: new Date(slotDateObj),
+            time: formattedTime,
+          });
+        }
+
+        slotDateObj.setMinutes(slotDateObj.getMinutes() + 30);
       }
 
-      setDocSlots((prev) => [...prev, timeSlots]);
+      if (timeSlots.length > 0) {
+        setDocSlots((prev) => [...prev, timeSlots]);
+      }
     }
   };
 
