@@ -56,10 +56,28 @@ export const AdminContextProvider = ({ children }) => {
       if (data.success) {
         setAppointments(data.appointments);
         // console.log(data.appointments);
-        
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred");
+    }
+  };
+
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/admin/cancel-appointment",
+        { appointmentId },
+        { headers: { aToken } }
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        getAllAppointments();
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to cancel appointment"
+      );
     }
   };
 
@@ -73,6 +91,7 @@ export const AdminContextProvider = ({ children }) => {
     appointments,
     setAppointments,
     getAllAppointments,
+    cancelAppointment,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
