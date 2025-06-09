@@ -34,6 +34,27 @@ const Appointments = () => {
     }
   };
 
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/user/cancel-appointment",
+        { appointmentId },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        toast.success(data.message || "Appointment cancelled successfully");
+
+        // Refresh appointments after cancellation
+        getUserAppointments();
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to cancel appointment"
+      );
+    }
+  };
+
   useEffect(() => {
     if (token) {
       getUserAppointments();
@@ -75,12 +96,26 @@ const Appointments = () => {
             </div>
             <div></div>
             <div className="flex flex-col gap-2 justify-end">
-              <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
-                Pay Online
-              </button>
-              <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300">
-                Cancel appointment
-              </button>
+              {!doc.cancelled && (
+                <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
+                  Pay Online
+                </button>
+              )}
+
+              {!doc.cancelled && (
+                <button
+                  onClick={() => cancelAppointment(doc._id)}
+                  className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
+                >
+                  Cancel appointment
+                </button>
+              )}
+
+              {doc.cancelled && (
+                <button className="text-sm text-red-500 text-center sm:min-w-48 py-2 border border-red-500 rounded">
+                  Appointment Cancelled
+                </button>
+              )}
             </div>
           </div>
         ))}
