@@ -250,6 +250,59 @@ const listAppointment = async (req, res) => {
   }
 };
 
+// API to cancel an appointment
+const cancelAppointment = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { appointmentId } = req.body;
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+    if (!appointmentData) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found.",
+      });
+    }
+
+    // verify appointment user
+    if (appointmentData.userId.toString() !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to cancel this appointment.",
+      });
+    }
+
+    // cancel appointment
+    await appointmentModel.findByIdAndUpdate(appointmentId, {
+      cancelled: true,
+    });
+
+    //releasing doctor slot
+    const { docId, slotDate, slotTime } = appointmentData;
+    const doctorData = await doctorModel.findById(docId).select("-password");
+    if (doctorData) {
+      let slots_booked = doctorData.slots_booked;
+      if (slots_booked[slotDate]) {
+        slots_booked[slotDate] = slots_booked[slotDate].filter(
+          (time) => time !== slotTime
+        );
+
+        await doctorModel.findByIdAndUpdate(docId, { slots_booked });
+      }
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Appointment cancelled.",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export {
   registerUser,
   loginUser,
@@ -257,4 +310,5 @@ export {
   updateUserProfile,
   bookAppointment,
   listAppointment,
+  cancelAppointment,
 };
