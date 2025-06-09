@@ -2,11 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Appointments = () => {
-  const { backendUrl, token, getDoctorsData } = useContext(AppContext);
+  const { backendUrl, token, getDoctorsData, currencySymbol } =
+    useContext(AppContext);
 
   const [appointments, setAppointments] = useState([]);
+  const [modalContext, setModalContext] = useState(null);
 
   const formatDateString = (dateStr) => {
     const [day, month, year] = dateStr.split("_");
@@ -23,7 +26,6 @@ const Appointments = () => {
       const { data } = await axios.get(backendUrl + "/api/user/appointments", {
         headers: { token },
       });
-
       if (data.success) {
         setAppointments(data.appointments.reverse());
       }
@@ -41,14 +43,9 @@ const Appointments = () => {
         { appointmentId },
         { headers: { token } }
       );
-
       if (data.success) {
         toast.success(data.message || "Appointment cancelled successfully");
-
-        // Refresh appointments after cancellation
         getUserAppointments();
-
-        // Refresh doctors data
         getDoctorsData();
       }
     } catch (error) {
@@ -56,6 +53,36 @@ const Appointments = () => {
         error.response?.data?.message || "Failed to cancel appointment"
       );
     }
+  };
+
+  const makePayment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/user/make-payment",
+        { appointmentId },
+        { headers: { token } }
+      );
+      if (data.success) {
+        toast.success(data.message || "Payment successful");
+        getUserAppointments();
+        setModalContext(null);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to make payment");
+    }
+  };
+
+  const handlePayClick = (appointmentId) => {
+    setModalContext({ type: "payment", appointmentId });
+  };
+
+  const handleCancelClick = (appointmentId) => {
+    setModalContext({ type: "cancel", appointmentId });
+  };
+
+  const getSelectedAppointment = () => {
+    if (!modalContext) return null;
+    return appointments.find((a) => a._id === modalContext.appointmentId);
   };
 
   useEffect(() => {
@@ -99,22 +126,30 @@ const Appointments = () => {
             </div>
             <div></div>
             <div className="flex flex-col gap-2 justify-end">
-              {!doc.cancelled && (
-                <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
-                  Pay Online
+              {!doc.payment && !doc.cancelled && (
+                <>
+                  <button
+                    onClick={() => handlePayClick(doc._id)}
+                    className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300"
+                  >
+                    Pay Online
+                  </button>
+                  <button
+                    onClick={() => handleCancelClick(doc._id)}
+                    className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
+                  >
+                    Cancel appointment
+                  </button>
+                </>
+              )}
+
+              {doc.payment && !doc.cancelled && (
+                <button className="text-sm text-green-500 text-center sm:min-w-48 py-2 border border-green-500 rounded">
+                  Payment Completed
                 </button>
               )}
 
-              {!doc.cancelled && (
-                <button
-                  onClick={() => cancelAppointment(doc._id)}
-                  className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
-                >
-                  Cancel appointment
-                </button>
-              )}
-
-              {doc.cancelled && (
+              {!doc.payment && doc.cancelled && (
                 <button className="text-sm text-red-500 text-center sm:min-w-48 py-2 border border-red-500 rounded">
                   Appointment Cancelled
                 </button>
@@ -123,6 +158,35 @@ const Appointments = () => {
           </div>
         ))}
       </div>
+
+      {/* Global Confirmation Modal */}
+      {modalContext && getSelectedAppointment() && (
+        <ConfirmModal
+          title={
+            modalContext.type === "payment"
+              ? "Confirm Payment"
+              : "Cancel Appointment"
+          }
+          message={
+            modalContext.type === "payment"
+              ? `Do you want to proceed with the consultation fee of ${currencySymbol}${
+                  getSelectedAppointment().docData.fees
+                }?`
+              : "Are you sure you want to cancel this appointment?"
+          }
+          confirmText={
+            modalContext.type === "payment" ? "Make Payment" : "Yes, Cancel"
+          }
+          cancelText={modalContext.type === "payment" ? "Cancel" : "No"}
+          onConfirm={() => {
+            modalContext.type === "payment"
+              ? makePayment(modalContext.appointmentId)
+              : cancelAppointment(modalContext.appointmentId);
+            setModalContext(null);
+          }}
+          onCancel={() => setModalContext(null)}
+        />
+      )}
     </div>
   );
 };
