@@ -332,6 +332,14 @@ const makePayment = async (req, res) => {
       });
     }
 
+    // verify appointment user
+    if (appointmentData.userId.toString() !== userId) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to make payment for this appointment.",
+      });
+    }
+
     // Mark appointment as paid
     appointmentData.payment = true;
     await appointmentData.save();
@@ -356,5 +364,5 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  makePayment
+  makePayment,
 };
