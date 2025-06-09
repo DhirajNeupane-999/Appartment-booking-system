@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Appointments = () => {
-  const { backendUrl, token } = useContext(AppContext);
+  const { backendUrl, token, getDoctorsData } = useContext(AppContext);
 
   const [appointments, setAppointments] = useState([]);
 
@@ -47,6 +47,9 @@ const Appointments = () => {
 
         // Refresh appointments after cancellation
         getUserAppointments();
+
+        // Refresh doctors data
+        getDoctorsData();
       }
     } catch (error) {
       toast.error(
