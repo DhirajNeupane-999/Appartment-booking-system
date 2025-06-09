@@ -8,6 +8,7 @@ export const AdminContextProvider = ({ children }) => {
   const [aToken, setAToken] = useState(localStorage.getItem("aToken") || "");
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [dashData, setDashData] = useState(false);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -81,6 +82,22 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
+  const getDashData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/admin/dashboard", {
+        headers: { aToken },
+      });
+
+      if (data.success) {
+        setDashData(data.dashData);
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to load Dashboard data"
+      );
+    }
+  };
+
   const value = {
     aToken,
     setAToken,
@@ -92,6 +109,8 @@ export const AdminContextProvider = ({ children }) => {
     setAppointments,
     getAllAppointments,
     cancelAppointment,
+    dashData,
+    getDashData,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
