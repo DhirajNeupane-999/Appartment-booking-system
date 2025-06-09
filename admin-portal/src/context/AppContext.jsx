@@ -11,8 +11,20 @@ export const AppContextProvider = ({ children }) => {
 
     return age;
   };
+
+  const formatDateString = (dateStr) => {
+    const [day, month, year] = dateStr.split("_");
+    const date = new Date(`${year}-${month}-${day}`);
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   const value = {
     calculateAge,
+    formatDateString,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
