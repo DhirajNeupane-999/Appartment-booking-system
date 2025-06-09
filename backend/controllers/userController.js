@@ -303,6 +303,51 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
+// API to make payment of an appointment
+const makePayment = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { appointmentId } = req.body;
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (!appointmentData) {
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found.",
+      });
+    }
+
+    if (appointmentData.cancelled) {
+      return res.status(400).json({
+        success: false,
+        message: "Appointment cancelled.",
+      });
+    }
+
+    if (appointmentData.payment) {
+      return res.status(400).json({
+        success: false,
+        message: "Payment already completed.",
+      });
+    }
+
+    // Mark appointment as paid
+    appointmentData.payment = true;
+    await appointmentData.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Payment successful.",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export {
   registerUser,
   loginUser,
@@ -311,4 +356,5 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
+  makePayment
 };
