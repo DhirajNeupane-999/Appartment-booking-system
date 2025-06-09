@@ -40,16 +40,22 @@ const Appointment = () => {
       // If it's today, start after current time rounded up to next slot
       if (i === 0) {
         const now = new Date();
-        const nextSlot = new Date(now);
+        const bookingStartTime = new Date(currentDate);
+        bookingStartTime.setHours(10, 0, 0, 0); // 10:00 AM
 
+        const nextSlot = new Date(now);
         nextSlot.setMinutes(now.getMinutes() > 30 ? 0 : 30);
         nextSlot.setHours(
           now.getMinutes() > 30 ? now.getHours() + 1 : now.getHours()
         );
         nextSlot.setSeconds(0, 0);
 
-        if (nextSlot > endTime) continue; // skip today if no valid slot left
-        slotDateObj = new Date(nextSlot); // start from next available slot
+        // Use the later of now-rounded-up or 4 PM
+        const startFrom =
+          nextSlot > bookingStartTime ? nextSlot : bookingStartTime;
+
+        if (startFrom > endTime) continue; // skip today if no valid slot left
+        slotDateObj = new Date(startFrom); // start from next available slot
       }
 
       let timeSlots = [];
