@@ -20,7 +20,7 @@ export const AdminContextProvider = ({ children }) => {
       });
       if (data.success) {
         setDoctors(data.doctors);
-        console.log(data.doctors);
+        // console.log(data.doctors);
 
         toast.success(data.message);
       }
@@ -47,7 +47,7 @@ export const AdminContextProvider = ({ children }) => {
     }
   };
 
-  const getALlAppointments = async () => {
+  const getAllAppointments = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/admin/appointments", {
         headers: { aToken },
@@ -55,6 +55,8 @@ export const AdminContextProvider = ({ children }) => {
 
       if (data.success) {
         setAppointments(data.appointments);
+        // console.log(data.appointments);
+        
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred");
@@ -70,7 +72,7 @@ export const AdminContextProvider = ({ children }) => {
     changeAvailability,
     appointments,
     setAppointments,
-    getALlAppointments,
+    getAllAppointments,
   };
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
