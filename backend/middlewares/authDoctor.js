@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 const authDoctor = async (req, res, next) => {
   try {
     // Get the token from the request headers
-    const { dToken } = req.headers;
+    const { dtoken } = req.headers;
 
-    if (!dToken) {
+    if (!dtoken) {
       res.status(401).json({
         success: false,
         message: "Token is missing.",
@@ -14,7 +14,7 @@ const authDoctor = async (req, res, next) => {
     }
 
     // Verify the token
-    const token_decode = jwt.verify(dToken, process.env.JWT_SECRET);
+    const token_decode = jwt.verify(dtoken, process.env.JWT_SECRET);
     // req.user.docId = token_decode.id;
     req.user = { docId: token_decode.id };
 
