@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { assets } from "../assets/assets";
+import { assets } from "../../assets/assets";
 import { useContext } from "react";
-import { AdminContext } from "../context/AdminContext";
+import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { DoctorContext } from "../context/DoctorContext";
+import { DoctorContext } from "../../context/DoctorContext";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
