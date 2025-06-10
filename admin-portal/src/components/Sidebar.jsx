@@ -4,14 +4,14 @@ import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 const navLinks = [
-  { to: "/admin-dashboard", icon: assets.home_icon, label: "Dashboard" },
+  { to: "/admin/dashboard", icon: assets.home_icon, label: "Dashboard" },
   {
-    to: "/all-appointments",
+    to: "/admin/all-appointments",
     icon: assets.appointment_icon,
     label: "All Appointments",
   },
-  { to: "/add-doctor", icon: assets.add_icon, label: "Add Doctor" },
-  { to: "/doctors-list", icon: assets.home_icon, label: "Doctor List" },
+  { to: "/admin/add-doctor", icon: assets.add_icon, label: "Add Doctor" },
+  { to: "/admin/doctors-list", icon: assets.home_icon, label: "Doctor List" },
 ];
 
 const Sidebar = () => {
