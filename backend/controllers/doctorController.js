@@ -66,9 +66,11 @@ const loginDoctor = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: doctor._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: doctor._id },
+      process.env.JWT_SECRET
+      // {expiresIn: "1h",}
+    );
 
     res.status(200).json({
       success: true,
