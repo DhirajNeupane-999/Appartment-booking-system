@@ -1,6 +1,7 @@
 import doctorModel from "../models/doctorModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import appointmentModel from "../models/appointmentModel.js";
 
 const changeAvailability = async (req, res) => {
   try {
@@ -81,4 +82,22 @@ const loginDoctor = async (req, res) => {
   }
 };
 
-export { changeAvailability, doctorList, loginDoctor };
+// API to get doctor's own appointments only
+const appointmentsDoctor = async (req, res) => {
+  try {
+    const { docId } = req.user;
+    const appointments = await appointmentModel.find({ docId });
+
+    res.status(200).json({
+      success: true,
+      appointments,
+    });
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export { changeAvailability, doctorList, loginDoctor, appointmentsDoctor };
