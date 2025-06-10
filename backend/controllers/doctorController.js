@@ -93,11 +93,70 @@ const appointmentsDoctor = async (req, res) => {
       appointments,
     });
   } catch (error) {
-    res.status(401).json({
+    res.status(400).json({
       success: false,
       message: error.message,
     });
   }
 };
 
-export { changeAvailability, doctorList, loginDoctor, appointmentsDoctor };
+// API to make appointment completed for doctor portal
+const appointmentComplete = async (req, res) => {
+  try {
+    const { docId } = req.user;
+    const { appointmentId } = req.body;
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (appointmentData && appointmentData.docId === docId) {
+      await appointmentModel.findByIdAndUpdate(appointmentId, {
+        isCompleted: true,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Appointment Completed.",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// API to make appointment cancel for doctor portal
+const appointmentCancel = async (req, res) => {
+  try {
+    const { docId } = req.user;
+    const { appointmentId } = req.body;
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (appointmentData && appointmentData.docId === docId) {
+      await appointmentModel.findByIdAndUpdate(appointmentId, {
+        cancelled: true,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Appointment Cancelled.",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export {
+  changeAvailability,
+  doctorList,
+  loginDoctor,
+  appointmentsDoctor,
+  appointmentComplete,
+  appointmentCancel,
+};
