@@ -36,7 +36,7 @@ const Sidebar = () => {
             ({ to, icon, label }) => (
               <NavLink
                 className={({ isActive }) =>
-                  `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${
+                  `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-60 lg:min-w-72 cursor-pointer ${
                     isActive ? "bg-[#F2F3FF] border-r-4 border-primary" : ""
                   }`
                 }
@@ -44,7 +44,7 @@ const Sidebar = () => {
                 to={to}
               >
                 <img src={icon} alt={label} />
-                <p>{label}</p>
+                <p className="hidden md:block">{label}</p>
               </NavLink>
             )
           )}
