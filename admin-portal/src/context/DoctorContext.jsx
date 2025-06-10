@@ -28,11 +28,51 @@ export const DoctorContextProvider = ({ children }) => {
     }
   };
 
+  const completeAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/doctor/complete-appointment",
+        { appointmentId },
+        { headers: { dToken } }
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        getAppointments();
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to complete appointment"
+      );
+    }
+  };
+
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/doctor/cancel-appointment",
+        { appointmentId },
+        { headers: { dToken } }
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        getAppointments();
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to cancel appointments"
+      );
+    }
+  };
+
   const value = {
     dToken,
     setDToken,
     appointments,
     getAppointments,
+    completeAppointment,
+    cancelAppointment,
   };
   return (
     <DoctorContext.Provider value={value}>{children}</DoctorContext.Provider>
