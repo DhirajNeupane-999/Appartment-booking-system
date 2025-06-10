@@ -17,6 +17,7 @@ const AdminLayout = () => (
         <Route path="all-appointments" element={<AllAppointments />} />
         <Route path="add-doctor" element={<AddDoctor />} />
         <Route path="doctors-list" element={<DoctorsList />} />
+        
         <Route path="*" element={<NotAuthorized />} />
       </Routes>
     </div>

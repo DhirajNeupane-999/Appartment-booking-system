@@ -12,9 +12,10 @@ const DoctorLayout = () => (
     <div className="flex items-start">
       <Sidebar />
       <Routes>
-        <Route path="/dashboard" element={<DoctorDashboard />} />
+        <Route path="dashboard" element={<DoctorDashboard />} />
         <Route path="appointments" element={<DoctorAppointments />} />
         <Route path="profile" element={<DoctorProfile />} />
+        
         <Route path="*" element={<NotAuthorized />} />
       </Routes>
     </div>
