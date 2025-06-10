@@ -6,9 +6,9 @@ export const DoctorContext = createContext();
 export const DoctorContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  const [dToken, setDtoken] = useState(localStorage.getItem("dToken") || "");
+  const [dToken, setDToken] = useState(localStorage.getItem("dToken") || "");
 
-  const value = { dToken, setDtoken };
+  const value = { dToken, setDToken };
   return (
     <DoctorContext.Provider value={value}>{children}</DoctorContext.Provider>
   );
