@@ -3,7 +3,7 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Backend CI](https://img.shields.io/badge/Backend-Node.js-green)]()
 [![Frontend CI](https://img.shields.io/badge/Frontend-React-blue)]()
-
+[![MongoDB Atlas](https://img.shields.io/badge/Cloud_DB-MongoDB_Atlas-green)]()
 ---
 
 ## 📌 Project Overview
@@ -29,6 +29,7 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ---
 
+<a name="key-features"></a>
 ## 🚀 Key Features
 
 ### 👤 **User Capabilities**
@@ -72,6 +73,7 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ---
 
+<a name="project-structure"></a>
 ## 📁 Project Structure
 
 ```
@@ -182,6 +184,7 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ---
 
+<a name="tech-stack"></a>
 ## 🛠️ Tech Stack
 
 ### Backend
@@ -206,6 +209,7 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ---
 
+<a name="installation--setup"></a>
 ## 🔧 Installation & Setup
 
 ### 📦 Prerequisites
@@ -277,6 +281,7 @@ npm run dev
 
 ---
 
+<a name="api-endpoints"></a>
 ## 🌐 API Endpoints
 
 ### 👤 User Routes (`/api/user`)
@@ -313,6 +318,7 @@ npm run dev
 
 ---
 
+<a name="testing"></a>
 ## 🧪 Testing
 
 ### Backend
@@ -327,6 +333,7 @@ npm run dev
 
 ---
 
+<a name="deployment"></a>
 ## 📦 Deployment
 
 - **Backend**: Deploy on Render, Heroku, or DigitalOcean.
@@ -336,6 +343,7 @@ npm run dev
 
 ---
 
+<a name="future-improvements"></a>
 ## 🚀 Future Improvements
 
 - Email notifications for bookings and cancellations
@@ -346,6 +354,7 @@ npm run dev
 
 ---
 
+<a name="author"></a>
 ## 👨‍💻 Author
 
 **Mahmud Alam**
@@ -357,6 +366,7 @@ npm run dev
 
 ---
 
+<a name="acknowledgments"></a>
 ## 🎉 Acknowledgments
 
 - MongoDB Atlas for the scalable cloud database
