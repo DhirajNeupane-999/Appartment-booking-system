@@ -178,7 +178,7 @@ const bookAppointment = async (req, res) => {
     if (!docData.available) {
       return res.status(404).json({
         success: false,
-        message: "Doctor not found.",
+        message: "Doctor not available. Please choose another doctor.",
       });
     }
 
