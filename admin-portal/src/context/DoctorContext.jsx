@@ -11,6 +11,7 @@ export const DoctorContextProvider = ({ children }) => {
   const [dToken, setDToken] = useState(localStorage.getItem("dToken") || "");
   const [appointments, setAppointments] = useState([]);
   const [dashData, setDashData] = useState(false);
+  const [profileData, setProfileData] = useState(false);
 
   const getAppointments = async () => {
     try {
@@ -85,6 +86,22 @@ export const DoctorContextProvider = ({ children }) => {
     }
   };
 
+  const getProfileData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/doctor/profile", {
+        headers: { dToken },
+      });
+
+      if (data.success) {
+        setProfileData(data.profileData);
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to cancel appointments"
+      );
+    }
+  };
+
   const value = {
     dToken,
     setDToken,
@@ -94,6 +111,8 @@ export const DoctorContextProvider = ({ children }) => {
     cancelAppointment,
     dashData,
     getDashData,
+    profileData,
+    getProfileData,
   };
   return (
     <DoctorContext.Provider value={value}>{children}</DoctorContext.Provider>
