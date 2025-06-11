@@ -1,8 +1,8 @@
 # 🏥 Doctor Appointment Booking System (MERN)
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![Backend CI](https://img.shields.io/badge/backend-passing-green.svg)]()
-[![Frontend CI](https://img.shields.io/badge/frontend-passing-green.svg)]()
+[![Backend CI](https://img.shields.io/badge/Backend-Node.js-green)]()
+[![Frontend CI](https://img.shields.io/badge/Frontend-React-blue)]()
 
 ---
 
@@ -18,42 +18,42 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ### 👤 **User Capabilities**
 
-* Secure **registration and login** with JWT authentication
-* **Profile management**, including uploading and updating profile photos
-* Intuitive **appointment booking**, viewing, and cancellation
-* Seamless and secure **online payment processing**
+- Secure **registration and login** with JWT authentication
+- **Profile management**, including uploading and updating profile photos
+- Intuitive **appointment booking**, viewing, and cancellation
+- Seamless and secure **online payment processing**
 
 ### 🩺 **Doctor Capabilities**
 
-* Secure **doctor login** and role-based dashboard access
-* Full control over **appointment management**: view, confirm, complete, or cancel
-* Ability to **update profile and professional details**, including image uploads
-* Access to a personalized **dashboard** summarizing key performance metrics
+- Secure **doctor login** and role-based dashboard access
+- Full control over **appointment management**: view, confirm, complete, or cancel
+- Ability to **update profile and professional details**, including image uploads
+- Access to a personalized **dashboard** summarizing key performance metrics
 
 ### 🛠️ **Admin Capabilities**
 
-* Role-restricted **admin authentication** with elevated privileges
-* **Doctor onboarding**: add new doctors with image uploads and role assignments
-* View and manage the list of all **registered doctors**
-* **Toggle doctor availability** and manage platform compliance
-* Access to comprehensive **appointment analytics and system dashboard**
+- Role-restricted **admin authentication** with elevated privileges
+- **Doctor onboarding**: add new doctors with image uploads and role assignments
+- View and manage the list of all **registered doctors**
+- **Toggle doctor availability** and manage platform compliance
+- Access to comprehensive **appointment analytics and system dashboard**
 
 ### 🔐 **Security & Middleware Architecture**
 
-* **JWT-based token authentication** for all user roles (Admin, Doctor, User)
-* Passwords encrypted using **bcrypt hashing**
-* **Middleware-layered access control** ensures secure and role-specific route access
-* **Image handling** via **Cloudinary** (CDN) + **Multer** (upload middleware)
-* Global **error handling**, request validation, and **secure RESTful API** conventions
-* Standardized **HTTP status codes** and response structure for consistent API usage
+- **JWT-based token authentication** for all user roles (Admin, Doctor, User)
+- Passwords encrypted using **bcrypt hashing**
+- **Middleware-layered access control** ensures secure and role-specific route access
+- **Image handling** via **Cloudinary** (CDN) + **Multer** (upload middleware)
+- Global **error handling**, request validation, and **secure RESTful API** conventions
+- Standardized **HTTP status codes** and response structure for consistent API usage
 
 ### 🌐 **Modern React Frontend**
 
-* Built with **React (Vite)** for lightning-fast performance and optimized build pipeline
-* Styled using **Tailwind CSS** with full **mobile responsiveness**
-* Organized in a **scalable component architecture** for maintainability and reusability
-* Integrated with **Axios** and **React Router** for robust API communication and navigation
-* Enhanced UX with **Toast notifications** and role-based conditional rendering
+- Built with **React (Vite)** for lightning-fast performance and optimized build pipeline
+- Styled using **Tailwind CSS** with full **mobile responsiveness**
+- Organized in a **scalable component architecture** for maintainability and reusability
+- Integrated with **Axios** and **React Router** for robust API communication and navigation
+- Enhanced UX with **Toast notifications** and role-based conditional rendering
 
 ---
 
@@ -82,8 +82,8 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 │   │   ├── adminRoute.js
 │   │   ├── doctorRoute.js
 │   │   └── userRoute.js
-│   ├── .env                           
-│   ├── server.js                     
+│   ├── .env
+│   ├── server.js
 │   └── package.json
 │
 │
@@ -171,23 +171,23 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ### Backend
 
-* **Node.js** & **Express.js** – API and server logic
-* **MongoDB + Mongoose** – Database & data modeling
-* **JWT** – Role-based authentication
-* **bcrypt** – Secure password hashing
-* **Cloudinary** – Image hosting
-* **Multer** – File upload handling
-* **dotenv** – Environment variable management
-* **cors** – Cross-origin resource sharing
+- **Node.js** & **Express.js** – API and server logic
+- **MongoDB + Mongoose** – Database & data modeling
+- **JWT** – Role-based authentication
+- **bcrypt** – Secure password hashing
+- **Cloudinary** – Image hosting
+- **Multer** – File upload handling
+- **dotenv** – Environment variable management
+- **cors** – Cross-origin resource sharing
 
 ### Frontend
 
-* **React** – Component-based UI
-* **Vite** – Lightning-fast build tool
-* **Tailwind CSS** – Utility-first styling
-* **Axios** – HTTP client
-* **React Router** – SPA routing
-* **React Toastify** – User notifications
+- **React** – Component-based UI
+- **Vite** – Lightning-fast build tool
+- **Tailwind CSS** – Utility-first styling
+- **Axios** – HTTP client
+- **React Router** – SPA routing
+- **React Toastify** – User notifications
 
 ---
 
@@ -195,10 +195,10 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ### 📦 Prerequisites
 
-* [Node.js](https://nodejs.org/)
-* [React.js](https://react.dev/)
-* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-* [Cloudinary account](https://cloudinary.com/)
+- [Node.js](https://nodejs.org/)
+- [React.js](https://react.dev/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [Cloudinary account](https://cloudinary.com/)
 
 ### 🚀 Getting Started
 
@@ -266,35 +266,35 @@ npm run dev
 
 ### 👤 User Routes (`/api/user`)
 
-* `POST /register`: Register a new user
-* `POST /login`: Login user and return token
-* `GET /get-profile`: Get logged-in user profile
-* `POST /update-profile`: Update profile with image upload
-* `POST /book-appointment`: Book an appointment with a doctor
-* `GET /appointments`: List all appointments
-* `POST /cancel-appointment`: Cancel a booking
-* `POST /make-payment`: Make a mock payment (expandable)
+- `POST /register`: Register a new user
+- `POST /login`: Login user and return token
+- `GET /get-profile`: Get logged-in user profile
+- `POST /update-profile`: Update profile with image upload
+- `POST /book-appointment`: Book an appointment with a doctor
+- `GET /appointments`: List all appointments
+- `POST /cancel-appointment`: Cancel a booking
+- `POST /make-payment`: Make a mock payment (expandable)
 
 ### 🩺 Doctor Routes (`/api/doctor`)
 
-* `GET /list`: Get list of doctors
-* `POST /login`: Doctor login
-* `GET /appointments`: View all appointments
-* `POST /complete-appointment`: Mark appointment as complete
-* `POST /cancel-appointment`: Cancel an appointment
-* `GET /dashboard`: Doctor dashboard
-* `GET /profile`: Get doctor profile
-* `POST /update-profile`: Update doctor profile
+- `GET /list`: Get list of doctors
+- `POST /login`: Doctor login
+- `GET /appointments`: View all appointments
+- `POST /complete-appointment`: Mark appointment as complete
+- `POST /cancel-appointment`: Cancel an appointment
+- `GET /dashboard`: Doctor dashboard
+- `GET /profile`: Get doctor profile
+- `POST /update-profile`: Update doctor profile
 
 ### 🛠️ Admin Routes (`/api/admin`)
 
-* `POST /login`: Admin login
-* `POST /add-doctor`: Add new doctor with image
-* `GET /all-doctors`: View all registered doctors
-* `POST /change-availability`: Change doctor’s available status
-* `GET /appointments`: View all appointments in system
-* `POST /cancel-appointment`: Cancel appointments manually
-* `GET /dashboard`: Admin dashboard metrics
+- `POST /login`: Admin login
+- `POST /add-doctor`: Add new doctor with image
+- `GET /all-doctors`: View all registered doctors
+- `POST /change-availability`: Change doctor’s available status
+- `GET /appointments`: View all appointments in system
+- `POST /cancel-appointment`: Cancel appointments manually
+- `GET /dashboard`: Admin dashboard metrics
 
 ---
 
@@ -302,32 +302,32 @@ npm run dev
 
 ### Backend
 
-* Use tools like **Postman**, **Thunder Client** or **Insomnia**.
-* Implement unit tests later using **Jest** or **Mocha**.
+- Use tools like **Postman**, **Thunder Client** or **Insomnia**.
+- Implement unit tests later using **Jest** or **Mocha**.
 
 ### Frontend
 
-* Build and deploy test versions.
-* Use **React Testing Library** or **Cypress** for integration tests.
+- Build and deploy test versions.
+- Use **React Testing Library** or **Cypress** for integration tests.
 
 ---
 
 ## 📦 Deployment
 
-* **Backend**: Deploy on Render, Heroku, or DigitalOcean.
-* **Frontend**: Deploy on Vercel, Netlify, or AWS.
-* Configure environment variables on the platform.
-* Use services like **MongoDB Atlas** and **Cloudinary** for production assets and images.
+- **Backend**: Deploy on Render, Heroku, or DigitalOcean.
+- **Frontend**: Deploy on Vercel, Netlify, or AWS.
+- Configure environment variables on the platform.
+- Use services like **MongoDB Atlas** and **Cloudinary** for production assets and images.
 
 ---
 
 ## 🚀 Future Improvements
 
-* Email notifications for bookings and cancellations
-* Payment integration
-* Doctor availability calendar view
-* Admin analytics dashboard
-* Pagination and filtering for large appointment datasets
+- Email notifications for bookings and cancellations
+- Payment integration
+- Doctor availability calendar view
+- Admin analytics dashboard
+- Pagination and filtering for large appointment datasets
 
 ---
 
@@ -335,18 +335,18 @@ npm run dev
 
 **Mahmud Alam**
 
-* 🌐 [Portfolio Website](https://mahmudalam.com)
-* 📧 Email: [mahmudalam.official@gmail.com](mailto:mahmudalam.official@gmail.com)
-* 💻 [GitHub](https://github.com/Mahmud-Alam)
-* 💼 [LinkedIn](https://www.linkedin.com/in/mahmudalamofficial/)
+- 🌐 [Portfolio Website](https://mahmudalam.com)
+- 📧 Email: [mahmudalam.official@gmail.com](mailto:mahmudalam.official@gmail.com)
+- 💻 [GitHub](https://github.com/Mahmud-Alam)
+- 💼 [LinkedIn](https://www.linkedin.com/in/mahmudalamofficial/)
 
 ---
 
 ## 🎉 Acknowledgments
 
-* MongoDB Atlas for the scalable cloud database
-* Cloudinary for seamless image management
-* The MERN community for open-source knowledge and resources
+- MongoDB Atlas for the scalable cloud database
+- Cloudinary for seamless image management
+- The MERN community for open-source knowledge and resources
 
 ---
 
