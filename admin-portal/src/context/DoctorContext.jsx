@@ -10,6 +10,7 @@ export const DoctorContextProvider = ({ children }) => {
 
   const [dToken, setDToken] = useState(localStorage.getItem("dToken") || "");
   const [appointments, setAppointments] = useState([]);
+  const [dashData, setDashData] = useState(false);
 
   const getAppointments = async () => {
     try {
@@ -39,6 +40,7 @@ export const DoctorContextProvider = ({ children }) => {
       if (data.success) {
         toast.success(data.message);
         getAppointments();
+        getDashData();
       }
     } catch (error) {
       toast.error(
@@ -58,6 +60,23 @@ export const DoctorContextProvider = ({ children }) => {
       if (data.success) {
         toast.success(data.message);
         getAppointments();
+        getDashData();
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Failed to cancel appointments"
+      );
+    }
+  };
+
+  const getDashData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/doctor/dashboard", {
+        headers: { dToken },
+      });
+
+      if (data.success) {
+        setDashData(data.dashData);
       }
     } catch (error) {
       toast.error(
@@ -73,6 +92,8 @@ export const DoctorContextProvider = ({ children }) => {
     getAppointments,
     completeAppointment,
     cancelAppointment,
+    dashData,
+    getDashData,
   };
   return (
     <DoctorContext.Provider value={value}>{children}</DoctorContext.Provider>
