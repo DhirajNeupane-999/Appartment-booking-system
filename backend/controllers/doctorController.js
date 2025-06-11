@@ -2,7 +2,6 @@ import doctorModel from "../models/doctorModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import appointmentModel from "../models/appointmentModel.js";
-import userModel from "../models/userModel.js";
 
 const changeAvailability = async (req, res) => {
   try {
@@ -200,7 +199,7 @@ const doctorProfile = async (req, res) => {
   try {
     const { docId } = req.user;
 
-    const profileData = await userModel.findById(docId).select("-password");
+    const profileData = await doctorModel.findById(docId).select("-password");
 
     res.status(200).json({
       success: true,
@@ -220,7 +219,7 @@ const updateDoctorProfile = async (req, res) => {
     const { docId } = req.user;
     const { fees, address, available } = req.body;
 
-    await userModel.findByIdAndUpdate(docId, { fees, address, available });
+    await doctorModel.findByIdAndUpdate(docId, { fees, address, available });
 
     res.status(200).json({
       success: true,
