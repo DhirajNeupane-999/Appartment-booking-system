@@ -112,6 +112,7 @@ export const DoctorContextProvider = ({ children }) => {
     dashData,
     getDashData,
     profileData,
+    setProfileData,
     getProfileData,
   };
   return (
