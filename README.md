@@ -14,6 +14,21 @@ The backend features **secure authentication**, **image upload with Cloudinary**
 
 ---
 
+## 📋 Table of Contents
+
+1. [Key Features](#key-features)
+2. [Project Structure](#project-structure)
+3. [Tech Stack](#tech-stack)
+4. [Installation & Setup](#installation--setup)
+5. [API Endpoints](#api-endpoints)
+6. [Testing](#testing)
+7. [Deployment](#deployment)
+8. [Future Improvements](#future-improvements)
+9. [Author](#author)
+10. [Acknowledgments](#acknowledgments)
+
+---
+
 ## 🚀 Key Features
 
 ### 👤 **User Capabilities**
