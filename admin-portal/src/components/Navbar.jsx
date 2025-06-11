@@ -1,14 +1,21 @@
 import { useContext } from "react";
 import { assets } from "../assets/assets";
 import { AdminContext } from "../context/AdminContext";
+import { DoctorContext } from "../context/DoctorContext";
 
 const Navbar = () => {
   const { aToken, setAToken } = useContext(AdminContext);
+  const { dToken, setDToken } = useContext(DoctorContext);
 
   const logoutHandler = () => {
+    // Admin logout
     setAToken("");
     localStorage.removeItem("aToken");
-  }
+
+    // Doctor logout
+    setDToken("");
+    localStorage.removeItem("dToken");
+  };
   return (
     <div className="flex justify-between items-center px-4 sm:px-10 py-3 border-b bg-white">
       <div className="flex items-center gap-2 text-xs">
@@ -21,7 +28,10 @@ const Navbar = () => {
           {aToken ? "Admin" : "Doctor"}
         </p>
       </div>
-      <button onClick={logoutHandler} className="cursor-pointer bg-primary text-white text-sm px-10 py-2 rounded-full">
+      <button
+        onClick={logoutHandler}
+        className="cursor-pointer bg-primary text-white text-sm px-10 py-2 rounded-full"
+      >
         Logout
       </button>
     </div>
