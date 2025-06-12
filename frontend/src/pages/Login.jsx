@@ -58,7 +58,11 @@ const Login = () => {
   }, [token]);
 
   return (
-    <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
+    <form
+      onSubmit={onSubmitHandler}
+      className="min-h-[80vh] flex flex-col items-center"
+    >
+      {/* <div className="flex flex-col items-center w-full"> */}
       <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg">
         <p className="text-2xl font-semibold">
           {state === "Sign Up" ? "Create Account" : "Login"}
@@ -128,6 +132,19 @@ const Login = () => {
           </p>
         )}
       </div>
+      {/* ----- ADMIN PORTAL LOGIN LINK ----- */}
+      <p className="mt-10 text-zinc-600 text-center w-full">
+        Are you a Doctor or Admin?{" "}
+        <a
+          href="https://mahmud-doctor-mern-admin.vercel.app/"
+          className="text-primary underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Login here
+        </a>
+      </p>
+      {/* </div> */}
     </form>
   );
 };
