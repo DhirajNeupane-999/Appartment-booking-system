@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets_frontend/assets";
 import { useState } from "react";
 import { useContext } from "react";
@@ -13,6 +13,7 @@ const navLinks = [
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { token, setToken, userData } = useContext(AppContext);
   const [showMenu, setShowMenu] = useState(false);
@@ -118,6 +119,25 @@ const Navbar = () => {
                 <p className="px-4 py-2 rounded inline-block">{nav.title}</p>
               </NavLink>
             ))}
+
+            {/* ----- Login button for mobile device ----- */}
+            {!token && (
+              <li className="">
+                <button
+                  onClick={() => {
+                    setShowMenu(false);
+                    navigate("/login");
+                  }}
+                  className={`px-6 py-2 rounded ${
+                    location.pathname === "/login"
+                      ? "bg-primary text-white"
+                      : "bg-transparent text-black"
+                  }`}
+                >
+                  Login
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
