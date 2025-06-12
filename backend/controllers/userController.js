@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import appointmentModel from "../models/appointmentModel.js";
 
+const MAX_USERS = 100;
+
 // API to register user
 const registerUser = async (req, res) => {
   try {
@@ -32,6 +34,25 @@ const registerUser = async (req, res) => {
       });
     }
 
+    // check total user count
+    const userCount = await userModel.countDocuments();
+    if (userCount >= MAX_USERS) {
+      return res.status(403).json({
+        success: false,
+        message: `User limit of ${MAX_USERS} reached. No more registrations allowed.`,
+      });
+    }
+
+    // check if email already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "This email address is already in use. Please use a different one.",
+      });
+    }
+
     // hashing user password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -52,14 +73,7 @@ const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    if (error.code === 11000 && error.keyPattern?.email) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "This email address is already in use. Please use a different one.",
-      });
-    }
-    return res.status(400).json({
+    res.status(400).json({
       success: false,
       message: error.message,
     });
