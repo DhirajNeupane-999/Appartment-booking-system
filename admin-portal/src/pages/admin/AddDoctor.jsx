@@ -42,7 +42,7 @@ const AddDoctor = () => {
       );
 
       const { data } = await axios.post(
-        backendUrl + "/api/admin/add-doctor",
+        "http://localhost:8000/api/admin/add-doctor",
         formData,
         { headers: { aToken } }
       );

@@ -8,6 +8,7 @@ import userModel from "../models/userModel.js";
 
 // API for adding doctor
 const addDoctor = async (req, res) => {
+  
   try {
     const {
       name,
@@ -97,9 +98,10 @@ const addDoctor = async (req, res) => {
 
 // API for Admin Login
 const loginAdmin = async (req, res) => {
+   
   try {
     const { email, password } = req.body;
-
+   
     // checking for all data to login
     if (!email || !password) {
       return res
@@ -119,7 +121,7 @@ const loginAdmin = async (req, res) => {
     } else {
       return res.status(400).json({
         success: false,
-        message: "Invalid email or password",
+        message: "Invalid email or passwordddddddddddddddddddddddddddddddddd",
       });
     }
   } catch (error) {
@@ -212,6 +214,7 @@ const appointmentCancelAdmin = async (req, res) => {
 
 // API to get dashboard data for admin dashboard
 const adminDashboard = async (req, res) => {
+  
   try {
     const doctors = await doctorModel.find({});
     const users = await userModel.find({});

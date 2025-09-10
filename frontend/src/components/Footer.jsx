@@ -5,7 +5,7 @@ const Footer = () => {
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm">
         {/* ---------- Section 01 ---------- */}
         <div>
-          <img className="mb-5 w-40" src={assets.logo} alt="" />
+          <img className="mb-5 w-40" src="pngegg.png" alt="" />
           <p className="w-full md:w-2/3 text-gray-600 leading-6">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda
             nesciunt illo velit minima similique voluptatibus magnam est alias
@@ -29,8 +29,8 @@ const Footer = () => {
         <div>
           <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
           <ul className="flex flex-col gap-2 text-gray-600">
-            <li>+880 1234 567890</li>
-            <li>info@mahmudalam.com</li>
+            <li>9812345678</li>
+            <li>Neupanedhiraj644@gmail.com</li>
           </ul>
         </div>
       </div>
@@ -39,7 +39,7 @@ const Footer = () => {
         <hr />
         <p className="py-5 text-sm text-center ">
           Copyright © {new Date().getFullYear()}{" "}
-          <a className="hover:text-primary font-bold" href="https://mahmudalam.com/">Mahmud Alam</a>.
+          <a className="hover:text-primary font-bold" href="">Dhiraj Neupane</a>.
         </p>
       </div>
     </div>
